@@ -15,7 +15,7 @@ void make_settings(sf::ContextSettings *settings, sf::RenderWindow *window,
         ballon->setOutlineColor(sf::Color PURPLE);
 
         srand(time(NULL));
-        for (int count = 0; count < NUM_OF_PARTICLES; count++) {
+        for (int count = 0; count < MAX_NUM_OF_PARTICLES; count++) {
                 ball[count].setRadius(RADIUS);
                 ball[count].setFillColor(sf::Color PINK);
                 ball[count].setOrigin(ball->getRadius(), ball->getRadius());

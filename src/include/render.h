@@ -5,7 +5,7 @@
 
 // Draws window and contents.
 void draw_frame(sf::RenderWindow *window, sf::CircleShape *ball,
-                sf::RectangleShape *ballon);
+                sf::RectangleShape *ballon, int num_of_particles);
 
 #endif // RENDER_H
 

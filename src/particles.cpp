@@ -18,9 +18,10 @@ int find_wall(wall wall, sf::Vector2f ballon_pos)
 }
 
 void move_balls(sf::CircleShape *ball, sf::RectangleShape *ballon,
-                sf::Vector2f *velocity, sf::Time *elapsed)
+                sf::Vector2f *velocity, sf::Time *elapsed,
+                int num_of_particles)
 {
-        for (int count = 0; count < NUM_OF_PARTICLES; count++) {
+        for (int count = 0; count < num_of_particles; count++) {
                 sf::Vector2f pos = ball[count].getPosition();
                 sf::Vector2f new_pos(pos.x + velocity[count].x * elapsed->asSeconds(),
                                      pos.y + velocity[count].y * elapsed->asSeconds());
@@ -40,7 +41,7 @@ void move_balls(sf::CircleShape *ball, sf::RectangleShape *ballon,
                 }
 
                 static int num_of_collisions = 0;
-                for (int i = count + 1; i < NUM_OF_PARTICLES; i++)
+                for (int i = count + 1; i < num_of_particles; i++)
                         if (detect_collision(&ball[count], &ball[i])) {
                                 num_of_collisions++;
                                 fprintf(stderr, "Collision %d.\n", num_of_collisions);

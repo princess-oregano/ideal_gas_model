@@ -8,14 +8,14 @@
 #define DARK_BLUE (11,  11,  69)
 #define PINK      (255, 16, 240)
 
-const float RADIUS         = 20;
-const float THRESHOLD      = 0.001;
-const int NUM_OF_PARTICLES = 5;
-const int WINDOW_WIDTH     = 800;
-const int WINDOW_HEIGHT    = 600;
-const int BALLON_WIDTH     = 300;
-const int BALLON_HEIGHT    = 500;
-const int BALLON_THICKNESS = 4;
+const float RADIUS             = 20;
+const float THRESHOLD       = 0.001;
+const int MAX_NUM_OF_PARTICLES = 15;
+const int WINDOW_WIDTH        = 800;
+const int WINDOW_HEIGHT       = 600;
+const int BALLON_WIDTH        = 300;
+const int BALLON_HEIGHT       = 500;
+const int BALLON_THICKNESS      = 4;
 
 #endif // COMMON_H
 
