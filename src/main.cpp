@@ -14,7 +14,8 @@ int main()
 
         int num_of_particles = 1;
 
-        make_settings(&settings, &window, particles, &ballon);
+        init_frame(&settings, &window, &ballon);
+        set_particles(particles);
 
         while (window.isOpen()) {
                 sf::Event event;

@@ -1,7 +1,7 @@
 #include "include/settings.h"
 
-void make_settings(sf::ContextSettings *settings, sf::RenderWindow *window,
-                   particle_t *particles, sf::RectangleShape *ballon)
+void init_frame(sf::ContextSettings *settings, sf::RenderWindow *window,
+                sf::RectangleShape *ballon)
 {
         settings->antialiasingLevel = 12;
 
@@ -12,7 +12,10 @@ void make_settings(sf::ContextSettings *settings, sf::RenderWindow *window,
         ballon->setPosition((float) WINDOW_WIDTH / 2, (float) WINDOW_HEIGHT / 2);
         ballon->setOutlineThickness(BALLON_THICKNESS);
         ballon->setOutlineColor(sf::Color(PURPLE));
+}
 
+void set_particles(particle_t *particles)
+{
         srand(time(NULL));
         for (int count = 0; count < MAX_NUM_OF_PARTICLES; count++) {
                 particles[count].ball.setRadius(RADIUS);

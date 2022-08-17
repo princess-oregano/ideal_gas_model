@@ -4,9 +4,11 @@
 #include <stdlib.h>
 #include "common.h"
 
-// Creates initial settings.
-void make_settings(sf::ContextSettings *settings, sf::RenderWindow *window,
-                   particle_t *particles, sf::RectangleShape *ballon);
+// Makes initial frame settings.
+void init_frame(sf::ContextSettings *settings, sf::RenderWindow *window,
+                sf::RectangleShape *ballon);
+// Initializes array of particle_t structures.
+void set_particles(particle_t *particles);
 
 #endif // SETTINGS_H
 
