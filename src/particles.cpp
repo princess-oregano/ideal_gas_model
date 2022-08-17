@@ -1,22 +1,5 @@
 #include "include/particles.h"
 
-int find_wall(wall wall, sf::Vector2f ballon_pos)
-{
-        switch (wall)
-        {
-                case LOWER:
-                        return ballon_pos.y + (float) BALLON_HEIGHT / 2;
-                case UPPER:
-                        return ballon_pos.y - (float) BALLON_HEIGHT / 2;
-                case LEFT:
-                        return ballon_pos.x - (float) BALLON_WIDTH  / 2;
-                case RIGHT:
-                        return ballon_pos.x + (float) BALLON_WIDTH  / 2;
-                default:
-                        return -1;
-        }
-}
-
 void move_balls(sf::CircleShape *ball, sf::RectangleShape *ballon,
                 sf::Vector2f *velocity, sf::Time *elapsed,
                 int num_of_particles)
@@ -26,18 +9,18 @@ void move_balls(sf::CircleShape *ball, sf::RectangleShape *ballon,
                 sf::Vector2f new_pos(pos.x + velocity[count].x * elapsed->asSeconds(),
                                      pos.y + velocity[count].y * elapsed->asSeconds());
 
-                if (new_pos.x - RADIUS < find_wall(LEFT, ballon->getPosition())) {
+                if (new_pos.x - RADIUS < LEFT_WALL) {
                         velocity[count].x *= -1;
-                        new_pos.x = find_wall(LEFT, ballon->getPosition()) + RADIUS;
-                } else if (new_pos.x + RADIUS >= find_wall(RIGHT, ballon->getPosition())) {
+                        new_pos.x = LEFT_WALL + RADIUS;
+                } else if (new_pos.x + RADIUS >= RIGHT_WALL) {
                         velocity[count].x *= -1;
-                        new_pos.x = find_wall(RIGHT, ballon->getPosition()) - RADIUS;
-                } else if (new_pos.y - RADIUS < find_wall(UPPER, ballon->getPosition())) {
+                        new_pos.x = RIGHT_WALL - RADIUS;
+                } else if (new_pos.y - RADIUS < UPPER_WALL) {
                         velocity[count].y *= -1;
-                        new_pos.y = find_wall(UPPER, ballon->getPosition()) + RADIUS;
-                } else if (new_pos.y + RADIUS >= find_wall(LOWER, ballon->getPosition())) {
+                        new_pos.y = UPPER_WALL + RADIUS;
+                } else if (new_pos.y + RADIUS >= LOWER_WALL) {
                         velocity[count].y *= -1;
-                        new_pos.y = find_wall(LOWER, ballon->getPosition()) - RADIUS;
+                        new_pos.y = LOWER_WALL - RADIUS;
                 }
 
                 static int num_of_collisions = 0;
@@ -46,7 +29,7 @@ void move_balls(sf::CircleShape *ball, sf::RectangleShape *ballon,
                                 num_of_collisions++;
                                 fprintf(stderr, "Collision %d.\n", num_of_collisions);
 
-                                change_velocity(&velocity[count], &velocity[i]);
+                                swap_velocity(&velocity[count], &velocity[i]);
 
                                 sf::Vector2f position = ball[i].getPosition();
                                 ball[i].setPosition(position.x + velocity[i].x * elapsed->asSeconds(),
@@ -71,7 +54,7 @@ bool detect_collision(sf::CircleShape *ball1, sf::CircleShape *ball2)
         return (dist < 2 * RADIUS);
 }
 
-void change_velocity(sf::Vector2f *velocity1, sf::Vector2f *velocity2)
+void swap_velocity(sf::Vector2f *velocity1, sf::Vector2f *velocity2)
 {
         sf::Vector2f temp(0, 0);
 

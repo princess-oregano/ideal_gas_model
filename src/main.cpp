@@ -30,7 +30,6 @@ int main()
                                 num_of_particles--;
                 }
 
-
                 sf::Time elapsed = clock.restart();
 
                 move_balls(ball, &ballon, velocity, &elapsed, num_of_particles);
