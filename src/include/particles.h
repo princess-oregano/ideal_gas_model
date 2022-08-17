@@ -11,9 +11,8 @@ const int  LEFT_WALL = (WINDOW_WIDTH - BALLON_WIDTH) / 2;
 const int RIGHT_WALL = (WINDOW_WIDTH + BALLON_WIDTH) / 2;
 
 // Moves a ball.
-void move_balls(sf::CircleShape *ball, sf::RectangleShape *ballon,
-               sf::Vector2f *velocity, sf::Time *elapsed,
-               int num_of_particles);
+void move_balls(particle_t *particles, sf::RectangleShape *ballon,
+                sf::Time *elapsed, int num_of_particles);
 // Detects collisions of particles.
 bool detect_collision(sf::CircleShape *ball1, sf::CircleShape *ball2);
 // Changes velocities of particles in case of collision.

@@ -9,13 +9,12 @@ int main()
         sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Particles");
         sf::ContextSettings settings;
         sf::RectangleShape ballon(sf::Vector2f(BALLON_WIDTH, BALLON_HEIGHT));
-        sf::CircleShape ball[MAX_NUM_OF_PARTICLES];
-        sf::Vector2f velocity[MAX_NUM_OF_PARTICLES];
+        particle_t particles[MAX_NUM_OF_PARTICLES];
         sf::Clock clock;
 
         int num_of_particles = 1;
 
-        make_settings(&settings, &window, ball, velocity, &ballon);
+        make_settings(&settings, &window, particles, &ballon);
 
         while (window.isOpen()) {
                 sf::Event event;
@@ -32,9 +31,9 @@ int main()
 
                 sf::Time elapsed = clock.restart();
 
-                move_balls(ball, &ballon, velocity, &elapsed, num_of_particles);
+                move_balls(particles, &ballon, &elapsed, num_of_particles);
 
-                draw_frame(&window, ball, &ballon, num_of_particles);
+                draw_frame(&window, particles, &ballon, num_of_particles);
         }
 
         return 0;

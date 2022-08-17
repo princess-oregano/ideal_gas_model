@@ -1,8 +1,7 @@
 #include "include/settings.h"
 
 void make_settings(sf::ContextSettings *settings, sf::RenderWindow *window,
-                   sf::CircleShape *ball, sf::Vector2f *velocity,
-                   sf::RectangleShape *ballon)
+                   particle_t *particles, sf::RectangleShape *ballon)
 {
         settings->antialiasingLevel = 12;
 
@@ -16,13 +15,14 @@ void make_settings(sf::ContextSettings *settings, sf::RenderWindow *window,
 
         srand(time(NULL));
         for (int count = 0; count < MAX_NUM_OF_PARTICLES; count++) {
-                ball[count].setRadius(RADIUS);
-                ball[count].setFillColor(sf::Color(PINK));
-                ball[count].setOrigin(ball->getRadius(), ball->getRadius());
-                ball[count].setPosition((float) WINDOW_WIDTH / 2, (float) WINDOW_HEIGHT / 2);
+                particles[count].ball.setRadius(RADIUS);
+                particles[count].ball.setFillColor(sf::Color(PINK));
+                particles[count].ball.setOrigin(particles[count].ball.getRadius(),
+                                                particles[count].ball.getRadius());
+                particles[count].ball.setPosition((float) WINDOW_WIDTH / 2, (float) WINDOW_HEIGHT / 2);
 
-                velocity[count].x = (rand() % 1000 - 500);
-                velocity[count].y = (rand() % 1000 - 500);
+                particles[count].velocity.x = (rand() % 1000 - 500);
+                particles[count].velocity.y = (rand() % 1000 - 500);
         }
 }
 

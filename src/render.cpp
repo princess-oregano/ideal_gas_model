@@ -1,12 +1,12 @@
 #include "include/render.h"
 
-void draw_frame(sf::RenderWindow *window, sf::CircleShape *ball,
+void draw_frame(sf::RenderWindow *window, particle_t *particles,
                 sf::RectangleShape *ballon, int num_of_particles)
 {
         window->clear(sf::Color(DARK_BLUE));
         window->draw(*ballon);
         for (int count = 0; count < num_of_particles; count++)
-                window->draw(ball[count]);
+                window->draw(particles[count].ball);
         window->display();
 }
 

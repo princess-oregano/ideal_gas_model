@@ -6,8 +6,7 @@
 
 // Creates initial settings.
 void make_settings(sf::ContextSettings *settings, sf::RenderWindow *window,
-                   sf::CircleShape *ball, sf::Vector2f *velocity,
-                   sf::RectangleShape *ballon);
+                   particle_t *particles, sf::RectangleShape *ballon);
 
 #endif // SETTINGS_H
 

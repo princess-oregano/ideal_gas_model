@@ -2,7 +2,13 @@
 #define COMMON_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/CircleShape.hpp>
 #include <stdio.h>
+
+struct particle_t {
+        sf::CircleShape ball {};
+        sf::Vector2f velocity {};
+};
 
 const float RADIUS             = 20;
 const float THRESHOLD       = 0.001;
