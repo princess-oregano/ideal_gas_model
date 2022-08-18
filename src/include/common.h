@@ -12,7 +12,6 @@ struct particle_t {
 };
 
 const float PARTICLE_RADIUS    = 20;
-const float THRESHOLD       = 0.001;
 const int MAX_NUM_OF_PARTICLES = 15;
 const int WINDOW_WIDTH        = 800;
 const int WINDOW_HEIGHT       = 600;
