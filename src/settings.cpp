@@ -3,6 +3,10 @@
 void init_frame(sf::ContextSettings *settings, sf::RenderWindow *window,
                 sf::RectangleShape *ballon)
 {
+        assert(settings);
+        assert(window);
+        assert(ballon);
+
         settings->antialiasingLevel = 12;
 
         window->setVerticalSyncEnabled(true);
@@ -16,6 +20,8 @@ void init_frame(sf::ContextSettings *settings, sf::RenderWindow *window,
 
 void set_particles(particle_t *particles)
 {
+        assert(particles);
+
         srand(time(NULL));
         for (int count = 0; count < MAX_NUM_OF_PARTICLES; count++) {
                 particles[count].ball.setRadius(PARTICLE_RADIUS);

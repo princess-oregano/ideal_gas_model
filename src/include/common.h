@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
 #include <stdio.h>
+#include <assert.h>
 
 struct particle_t {
         sf::CircleShape ball {};
