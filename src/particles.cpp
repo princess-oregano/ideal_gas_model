@@ -49,13 +49,16 @@ static void collide_particle2walls(particle_t *particles, sf::Vector2f *new_pos,
         if (new_pos->x - PARTICLE_RADIUS < LEFT_WALL) {
                 particles[count].velocity.x *= -1;
                 new_pos->x = LEFT_WALL + PARTICLE_RADIUS;
-        } else if (new_pos->x + PARTICLE_RADIUS >= RIGHT_WALL) {
+        }
+        if (new_pos->x + PARTICLE_RADIUS >= RIGHT_WALL) {
                 particles[count].velocity.x *= -1;
                 new_pos->x = RIGHT_WALL - PARTICLE_RADIUS;
-        } else if (new_pos->y - PARTICLE_RADIUS < UPPER_WALL) {
+        }
+        if (new_pos->y - PARTICLE_RADIUS < UPPER_WALL) {
                 particles[count].velocity.y *= -1;
                 new_pos->y = UPPER_WALL + PARTICLE_RADIUS;
-        } else if (new_pos->y + PARTICLE_RADIUS >= LOWER_WALL) {
+        }
+        if (new_pos->y + PARTICLE_RADIUS >= LOWER_WALL) {
                 particles[count].velocity.y *= -1;
                 new_pos->y = LOWER_WALL - PARTICLE_RADIUS;
         }
