@@ -1,10 +1,10 @@
 #include "include/particles.h"
 
 // Detects collisions of particles.
-static bool detect_collision(sf::CircleShape *ball1, sf::CircleShape *ball2)
+static bool detect_collision(particle_t *particle1, particle_t *particle2)
 {
-        sf::Vector2f position1 = ball1->getPosition();
-        sf::Vector2f position2 = ball2->getPosition();
+        sf::Vector2f position1 = particle1->ball.getPosition();
+        sf::Vector2f position2 = particle2->ball.getPosition();
 
         float x_distance = position1.x - position2.x;
         float y_distance = position1.y - position2.y;
@@ -14,13 +14,13 @@ static bool detect_collision(sf::CircleShape *ball1, sf::CircleShape *ball2)
 }
 
 // Changes velocities of particles in case of collision.
-static void swap_velocity(sf::Vector2f *velocity1, sf::Vector2f *velocity2)
+static void swap_velocity(particle_t *particle1, particle_t *particle2)
 {
         sf::Vector2f temp(0, 0);
 
-        temp = *velocity1;
-        *velocity1 = *velocity2;
-        *velocity2 = temp;
+        temp = particle1->velocity;
+        particle1->velocity = particle2->velocity;
+        particle2->velocity = temp;
 }
 
 // Detects and manages collisions between balls.
@@ -30,12 +30,11 @@ static void collide_particle2particle(particle_t *particles, sf::Time *elapsed,
         static int num_of_collisions = 0;
 
         for (int i = count + 1; i < num_of_particles; i++)
-                if (detect_collision(&particles[count].ball,
-                                     &particles[i].ball)) {
+                if (detect_collision(&particles[count], &particles[i])) {
                         num_of_collisions++;
                         fprintf(stderr, "Collision %d.\n", num_of_collisions);
 
-                        swap_velocity(&particles[count].velocity, &particles[i].velocity);
+                        swap_velocity(&particles[count], &particles[i]);
 
                         sf::Vector2f position = particles[i].ball.getPosition();
                         particles[i].ball.setPosition(position.x + particles[i].velocity.x * elapsed->asSeconds(),
