@@ -18,7 +18,7 @@ void set_particles(particle_t *particles)
 {
         srand(time(NULL));
         for (int count = 0; count < MAX_NUM_OF_PARTICLES; count++) {
-                particles[count].ball.setRadius(RADIUS);
+                particles[count].ball.setRadius(PARTICLE_RADIUS);
                 particles[count].ball.setFillColor(sf::Color(PINK));
                 particles[count].ball.setOrigin(particles[count].ball.getRadius(),
                                                 particles[count].ball.getRadius());

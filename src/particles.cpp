@@ -1,7 +1,6 @@
 #include "include/particles.h"
 
-void move_balls(particle_t *particles, sf::RectangleShape *ballon,
-                sf::Time *elapsed, int num_of_particles)
+void move_balls(particle_t *particles, sf::Time *elapsed, int num_of_particles)
 {
         for (int count = 0; count < num_of_particles; count++) {
                 sf::Vector2f pos = particles[count].ball.getPosition();
@@ -20,18 +19,18 @@ void move_balls(particle_t *particles, sf::RectangleShape *ballon,
 
 void collide_walls(particle_t *particles, sf::Vector2f *new_pos, int count)
 {
-        if (new_pos->x - RADIUS < LEFT_WALL) {
+        if (new_pos->x - PARTICLE_RADIUS < LEFT_WALL) {
                 particles[count].velocity.x *= -1;
-                new_pos->x = LEFT_WALL + RADIUS;
-        } else if (new_pos->x + RADIUS >= RIGHT_WALL) {
+                new_pos->x = LEFT_WALL + PARTICLE_RADIUS;
+        } else if (new_pos->x + PARTICLE_RADIUS >= RIGHT_WALL) {
                 particles[count].velocity.x *= -1;
-                new_pos->x = RIGHT_WALL - RADIUS;
-        } else if (new_pos->y - RADIUS < UPPER_WALL) {
+                new_pos->x = RIGHT_WALL - PARTICLE_RADIUS;
+        } else if (new_pos->y - PARTICLE_RADIUS < UPPER_WALL) {
                 particles[count].velocity.y *= -1;
-                new_pos->y = UPPER_WALL + RADIUS;
-        } else if (new_pos->y + RADIUS >= LOWER_WALL) {
+                new_pos->y = UPPER_WALL + PARTICLE_RADIUS;
+        } else if (new_pos->y + PARTICLE_RADIUS >= LOWER_WALL) {
                 particles[count].velocity.y *= -1;
-                new_pos->y = LOWER_WALL - RADIUS;
+                new_pos->y = LOWER_WALL - PARTICLE_RADIUS;
         }
 }
 
@@ -61,9 +60,9 @@ bool detect_collision(sf::CircleShape *ball1, sf::CircleShape *ball2)
 
         float x_distance = position1.x - position2.x;
         float y_distance = position1.y - position2.y;
-        float dist = sqrt(x_distance * x_distance + y_distance * y_distance);
+        float dist_squared = x_distance * x_distance + y_distance * y_distance;
 
-        return (dist < 2 * RADIUS);
+        return (dist_squared < (2 * PARTICLE_RADIUS) * (2 * PARTICLE_RADIUS));
 }
 
 void swap_velocity(sf::Vector2f *velocity1, sf::Vector2f *velocity2)

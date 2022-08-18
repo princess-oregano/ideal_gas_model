@@ -10,7 +10,7 @@ struct particle_t {
         sf::Vector2f velocity {};
 };
 
-const float RADIUS             = 20;
+const float PARTICLE_RADIUS    = 20;
 const float THRESHOLD       = 0.001;
 const int MAX_NUM_OF_PARTICLES = 15;
 const int WINDOW_WIDTH        = 800;
