@@ -32,7 +32,7 @@ int main()
 
                 sf::Time elapsed = clock.restart();
 
-                move_balls(particles, &elapsed, num_of_particles);
+                move_particles(particles, &elapsed, num_of_particles);
 
                 draw_frame(&window, particles, &ballon, num_of_particles);
         }

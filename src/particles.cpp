@@ -24,8 +24,8 @@ static void swap_velocity(sf::Vector2f *velocity1, sf::Vector2f *velocity2)
 }
 
 // Detects and manages collisions between balls.
-static void collide_balls(particle_t *particles, sf::Time *elapsed,
-                   int count, int num_of_particles)
+static void collide_particle2particle(particle_t *particles, sf::Time *elapsed,
+                                      int count, int num_of_particles)
 {
         static int num_of_collisions = 0;
 
@@ -44,7 +44,7 @@ static void collide_balls(particle_t *particles, sf::Time *elapsed,
 }
 
 // Detects and manages collisions between ballon and balls.
-static void collide_walls(particle_t *particles, sf::Vector2f *new_pos, int count)
+static void collide_particle2walls(particle_t *particles, sf::Vector2f *new_pos, int count)
 {
         if (new_pos->x - PARTICLE_RADIUS < LEFT_WALL) {
                 particles[count].velocity.x *= -1;
@@ -61,16 +61,16 @@ static void collide_walls(particle_t *particles, sf::Vector2f *new_pos, int coun
         }
 }
 
-void move_balls(particle_t *particles, sf::Time *elapsed, int num_of_particles)
+void move_particles(particle_t *particles, sf::Time *elapsed, int num_of_particles)
 {
         for (int count = 0; count < num_of_particles; count++) {
                 sf::Vector2f pos = particles[count].ball.getPosition();
                 sf::Vector2f new_pos(pos.x + particles[count].velocity.x * elapsed->asSeconds(),
                                      pos.y + particles[count].velocity.y * elapsed->asSeconds());
 
-                collide_walls(particles, &new_pos, count);
+                collide_particle2walls(particles, &new_pos, count);
 
-                collide_balls(particles, elapsed, count, num_of_particles);
+                collide_particle2particle(particles, elapsed, count, num_of_particles);
 
                 new_pos.x = pos.x + particles[count].velocity.x * elapsed->asSeconds();
                 new_pos.y = pos.y + particles[count].velocity.y * elapsed->asSeconds();

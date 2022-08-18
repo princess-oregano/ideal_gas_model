@@ -11,7 +11,7 @@ const int  LEFT_WALL = (WINDOW_WIDTH - BALLON_WIDTH) / 2;
 const int RIGHT_WALL = (WINDOW_WIDTH + BALLON_WIDTH) / 2;
 
 // Moves a ball.
-void move_balls(particle_t *particles, sf::Time *elapsed, int num_of_particles);
+void move_particles(particle_t *particles, sf::Time *elapsed, int num_of_particles);
 
 #endif // PARTICLES_H
 
