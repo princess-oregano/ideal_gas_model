@@ -51,26 +51,26 @@ static void collide_particle2particle(particle_t *particles, sf::Time *elapsed,
 }
 
 // Detects and manages collisions between ballon and balls.
-static void collide_particle2walls(particle_t *particles, sf::Vector2f *new_pos)
+static void collide_particle2walls(particle_t *particles, sf::Vector2f *pos)
 {
         assert(particles);
-        assert(new_pos);
+        assert(pos);
 
-        if (new_pos->x - PARTICLE_RADIUS < LEFT_WALL) {
+        if (pos->x - PARTICLE_RADIUS < LEFT_WALL) {
                 particles->velocity.x *= -1;
-                new_pos->x = LEFT_WALL + PARTICLE_RADIUS;
+                pos->x = LEFT_WALL + PARTICLE_RADIUS;
         }
-        if (new_pos->x + PARTICLE_RADIUS >= RIGHT_WALL) {
+        if (pos->x + PARTICLE_RADIUS >= RIGHT_WALL) {
                 particles->velocity.x *= -1;
-                new_pos->x = RIGHT_WALL - PARTICLE_RADIUS;
+                pos->x = RIGHT_WALL - PARTICLE_RADIUS;
         }
-        if (new_pos->y - PARTICLE_RADIUS < UPPER_WALL) {
+        if (pos->y - PARTICLE_RADIUS < UPPER_WALL) {
                 particles->velocity.y *= -1;
-                new_pos->y = UPPER_WALL + PARTICLE_RADIUS;
+                pos->y = UPPER_WALL + PARTICLE_RADIUS;
         }
-        if (new_pos->y + PARTICLE_RADIUS >= LOWER_WALL) {
+        if (pos->y + PARTICLE_RADIUS >= LOWER_WALL) {
                 particles->velocity.y *= -1;
-                new_pos->y = LOWER_WALL - PARTICLE_RADIUS;
+                pos->y = LOWER_WALL - PARTICLE_RADIUS;
         }
 }
 
@@ -81,17 +81,16 @@ void move_particles(particle_t *particles, sf::Time *elapsed, int num_of_particl
 
         for (int count = 0; count < num_of_particles; count++) {
                 sf::Vector2f pos = particles[count].ball.getPosition();
-                sf::Vector2f new_pos(pos.x + particles[count].velocity.x * elapsed->asSeconds(),
-                                     pos.y + particles[count].velocity.y * elapsed->asSeconds());
 
-                collide_particle2walls(&particles[count], &new_pos);
+                collide_particle2walls(&particles[count], &pos);
 
                 for (int i = count + 1; i < num_of_particles; i++)
                         collide_particle2particle(particles, elapsed, i, count, num_of_particles);
 
-                new_pos.x = pos.x + particles[count].velocity.x * elapsed->asSeconds();
-                new_pos.y = pos.y + particles[count].velocity.y * elapsed->asSeconds();
-                particles[count].ball.setPosition(new_pos);
+                pos.x = pos.x + particles[count].velocity.x * elapsed->asSeconds();
+                pos.y = pos.y + particles[count].velocity.y * elapsed->asSeconds();
+
+                particles[count].ball.setPosition(pos);
         }
 }
 
