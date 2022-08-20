@@ -22,7 +22,7 @@ void set_particles(particle_t *particles)
 {
         assert(particles);
 
-        srand(time(NULL));
+        srand((unsigned int) time(NULL));
         for (int count = 0; count < MAX_NUM_OF_PARTICLES; count++) {
                 particles[count].ball.setRadius(PARTICLE_RADIUS);
                 particles[count].ball.setFillColor(sf::Color(PINK));
