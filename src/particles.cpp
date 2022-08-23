@@ -1,5 +1,23 @@
 #include "include/particles.h"
 
+// Moves particles from each other after their collision.
+static void separate_particles(particle_t *particle1, particle_t *particle2)
+{
+        sf::Vector2f position1 = particle1->ball.getPosition();
+        sf::Vector2f position2 = particle2->ball.getPosition();
+        sf::Vector2f distance = position1 - position2;
+
+        float length = sqrt(distance.x * distance.x + distance.y * distance.y);
+
+        float x_offset = distance.x / length * (2 * PARTICLE_RADIUS - length);
+        float y_offset = distance.y / length * (2 * PARTICLE_RADIUS - length);
+
+        position1.x += x_offset;
+        position1.y += y_offset;
+
+        particle1->ball.setPosition(position1);
+}
+
 // Detects collisions of particles.
 static bool detect_collision(const particle_t *particle1, const particle_t *particle2)
 {
@@ -42,6 +60,8 @@ static void collide_particle2particle(particle_t *particle1, particle_t *particl
                 fprintf(stderr, "Collision %d.\n", num_of_collisions);
 
                 swap_velocity(particle1, particle2);
+
+                separate_particles(particle1, particle2);
         }
 }
 
