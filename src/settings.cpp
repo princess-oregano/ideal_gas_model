@@ -24,14 +24,17 @@ void set_particles(particle_t *particles)
 
         srand((unsigned int) time(NULL));
         for (int count = 0; count < MAX_NUM_OF_PARTICLES; count++) {
+                particles[count].velocity.x = (rand() % 1000 - 500);
+                particles[count].velocity.y = (rand() % 1000 - 500);
+
+                particles[count].position.x = (float) WINDOW_WIDTH / 2;
+                particles[count].position.y = (float) WINDOW_HEIGHT / 2;
+
                 particles[count].ball.setRadius(PARTICLE_RADIUS);
                 particles[count].ball.setFillColor(sf::Color(PINK));
                 particles[count].ball.setOrigin(particles[count].ball.getRadius(),
                                                 particles[count].ball.getRadius());
-                particles[count].ball.setPosition((float) WINDOW_WIDTH / 2, (float) WINDOW_HEIGHT / 2);
-
-                particles[count].velocity.x = (rand() % 1000 - 500);
-                particles[count].velocity.y = (rand() % 1000 - 500);
+                particles[count].ball.setPosition(particles[count].position);
         }
 }
 

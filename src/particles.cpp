@@ -3,19 +3,16 @@
 // Moves particles from each other after their collision.
 static void separate_particles(particle_t *particle1, particle_t *particle2)
 {
-        sf::Vector2f position1 = particle1->ball.getPosition();
-        sf::Vector2f position2 = particle2->ball.getPosition();
-        sf::Vector2f distance = position1 - position2;
+        fprintf(stderr, "Separation\n");
+        sf::Vector2f distance = particle1->position - particle2->position;
 
         float length = sqrt(distance.x * distance.x + distance.y * distance.y);
 
         float x_offset = distance.x / length * (2 * PARTICLE_RADIUS - length);
         float y_offset = distance.y / length * (2 * PARTICLE_RADIUS - length);
 
-        position1.x += x_offset;
-        position1.y += y_offset;
-
-        particle1->ball.setPosition(position1);
+        particle1->position.x += x_offset;
+        particle1->position.y += y_offset;
 }
 
 // Detects collisions of particles.
@@ -24,11 +21,8 @@ static bool detect_collision(const particle_t *particle1, const particle_t *part
         assert(particle1);
         assert(particle2);
 
-        sf::Vector2f position1 = particle1->ball.getPosition();
-        sf::Vector2f position2 = particle2->ball.getPosition();
-
-        float x_distance = position1.x - position2.x;
-        float y_distance = position1.y - position2.y;
+        float x_distance = particle1->position.x - particle2->position.x;
+        float y_distance = particle1->position.y - particle2->position.y;
         float dist_squared = x_distance * x_distance + y_distance * y_distance;
 
         return (dist_squared < (2 * PARTICLE_RADIUS) * (2 * PARTICLE_RADIUS));
@@ -66,26 +60,25 @@ static void collide_particle2particle(particle_t *particle1, particle_t *particl
 }
 
 // Detects and manages collisions between ballon and balls.
-static void collide_particle2walls(particle_t *particles, sf::Vector2f *pos)
+static void collide_particle2walls(particle_t *particle)
 {
-        assert(particles);
-        assert(pos);
+        assert(particle);
 
-        if (pos->x - PARTICLE_RADIUS < LEFT_WALL) {
-                particles->velocity.x *= -1;
-                pos->x = LEFT_WALL + PARTICLE_RADIUS;
+        if (particle->position.x - PARTICLE_RADIUS < LEFT_WALL) {
+                particle->velocity.x *= -1;
+                particle->position.x = LEFT_WALL + PARTICLE_RADIUS;
         }
-        if (pos->x + PARTICLE_RADIUS > RIGHT_WALL) {
-                particles->velocity.x *= -1;
-                pos->x = RIGHT_WALL - PARTICLE_RADIUS;
+        if (particle->position.x + PARTICLE_RADIUS > RIGHT_WALL) {
+                particle->velocity.x *= -1;
+                particle->position.x = RIGHT_WALL - PARTICLE_RADIUS;
         }
-        if (pos->y - PARTICLE_RADIUS < UPPER_WALL) {
-                particles->velocity.y *= -1;
-                pos->y = UPPER_WALL + PARTICLE_RADIUS;
+        if (particle->position.y - PARTICLE_RADIUS < UPPER_WALL) {
+                particle->velocity.y *= -1;
+                particle->position.y = UPPER_WALL + PARTICLE_RADIUS;
         }
-        if (pos->y + PARTICLE_RADIUS > LOWER_WALL) {
-                particles->velocity.y *= -1;
-                pos->y = LOWER_WALL - PARTICLE_RADIUS;
+        if (particle->position.y + PARTICLE_RADIUS > LOWER_WALL) {
+                particle->velocity.y *= -1;
+                particle->position.y = LOWER_WALL - PARTICLE_RADIUS;
         }
 }
 
@@ -94,17 +87,14 @@ void move_particles(particle_t *particles, const sf::Time elapsed, const int num
         assert(particles);
 
         for (int count = 0; count < num_of_particles; count++) {
-                sf::Vector2f pos = particles[count].ball.getPosition();
 
-                collide_particle2walls(&particles[count], &pos);
+                collide_particle2walls(&particles[count]);
 
                 for (int i = count + 1; i < num_of_particles; i++)
                         collide_particle2particle(&particles[count], &particles[i]);
 
-                pos.x = pos.x + particles[count].velocity.x * elapsed.asSeconds();
-                pos.y = pos.y + particles[count].velocity.y * elapsed.asSeconds();
-
-                particles[count].ball.setPosition(pos);
+                particles[count].position.x += particles[count].velocity.x * elapsed.asSeconds();
+                particles[count].position.y += particles[count].velocity.y * elapsed.asSeconds();
         }
 }
 
