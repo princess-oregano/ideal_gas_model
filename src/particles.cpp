@@ -1,7 +1,7 @@
 #include "include/particles.h"
 
 // Detects collisions of particles.
-static bool detect_collision(particle_t *particle1, particle_t *particle2)
+static bool detect_collision(const particle_t *particle1, const particle_t *particle2)
 {
         assert(particle1);
         assert(particle2);
@@ -69,7 +69,7 @@ static void collide_particle2walls(particle_t *particles, sf::Vector2f *pos)
         }
 }
 
-void move_particles(particle_t *particles, sf::Time elapsed, int num_of_particles)
+void move_particles(particle_t *particles, const sf::Time elapsed, const int num_of_particles)
 {
         assert(particles);
 
