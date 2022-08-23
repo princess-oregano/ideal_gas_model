@@ -58,7 +58,7 @@ static void collide_particle2walls(particle_t *particles, sf::Vector2f *pos)
                 particles->velocity.x *= -1;
                 pos->x = LEFT_WALL + PARTICLE_RADIUS;
         }
-        if (pos->x + PARTICLE_RADIUS >= RIGHT_WALL) {
+        if (pos->x + PARTICLE_RADIUS > RIGHT_WALL) {
                 particles->velocity.x *= -1;
                 pos->x = RIGHT_WALL - PARTICLE_RADIUS;
         }
@@ -66,7 +66,7 @@ static void collide_particle2walls(particle_t *particles, sf::Vector2f *pos)
                 particles->velocity.y *= -1;
                 pos->y = UPPER_WALL + PARTICLE_RADIUS;
         }
-        if (pos->y + PARTICLE_RADIUS >= LOWER_WALL) {
+        if (pos->y + PARTICLE_RADIUS > LOWER_WALL) {
                 particles->velocity.y *= -1;
                 pos->y = LOWER_WALL - PARTICLE_RADIUS;
         }
